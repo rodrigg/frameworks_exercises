@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { MemberEntity } from '../../model/member';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
-export const MemberHead = () =>
-    <tr>
-        <th>
+export const MemberHead = () => <TableHead>
+    <TableRow>
+        <TableCell>
             Avatar
-        </th>
-        <th>
+        </TableCell>
+        <TableCell>
             Id
-        </th>
-        <th>
+        </TableCell>
+        <TableCell>
             Name
-        </th>
-    </tr>
+        </TableCell>
+    </TableRow>
+</TableHead>
