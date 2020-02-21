@@ -2,17 +2,17 @@ import { actionsEnums } from "../common/actionsEnums";
 import { MemberEntity } from "../model/member";
 import { memberAPI } from "../api/member";
 
-export const memberRequestCompleted = (
-  members: MemberEntity[],
-  page: number
-) => ({
-  type: actionsEnums.MEMBER_REQUEST_COMPLETED,
-  payload: { members, page }
+export const memberScroll = () => ({
+  type: actionsEnums.MEMBER_REQUEST_COMPLETED
 });
 
-export const memberRequestInitialize = (page: number) => ({
+export const memberRequestCompleted = (members: MemberEntity[]) => ({
   type: actionsEnums.MEMBER_REQUEST_COMPLETED,
-  payload: page
+  payload: members
+});
+
+export const memberRequestInitialize = () => ({
+  type: actionsEnums.MEMBER_REQUEST_COMPLETED
 });
 export const memberRequestError = (error: Error) => ({
   type: actionsEnums.MEMBER_REQUEST_ERROR,
@@ -25,9 +25,9 @@ export const memberRequestFinally = () => ({
 
 export const memberRequest = (page: number) => dispatcher => {
   const promise = memberAPI.getAllMembers("lemoncode");
-  dispatcher(memberRequestInitialize(page));
+  dispatcher(memberRequestInitialize());
   promise.then(data =>
-    dispatcher(memberRequestCompleted(data, page))
+    dispatcher(memberRequestCompleted(data))
       .catch((error: Error) => dispatcher(memberRequestError(error)))
       .finally(() => dispatcher(memberRequestFinally()))
   );

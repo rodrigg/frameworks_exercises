@@ -2,18 +2,18 @@ import { connect } from "react-redux";
 import { memberRequest } from "../../actions/memberRequest";
 import { MemberAreaComponent } from "./memberArea";
 import { State } from "../../reducers";
+import { memberScroll } from "../../actions/memberScroll";
 
-const mapStateToProps = ({ memberReducer }: State) => {
-  return {
-    members: memberReducer.members
-  };
-};
+const mapStateToProps = ({ memberReducer }: State) => ({
+  memberState: memberReducer
+});
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadMembers: () => {
-      return dispatch(memberRequest());
-    }
+    loadMembers: (page: number) => {
+      return dispatch(memberRequest(page));
+    },
+    setFetchingScroll: () => dispatch(memberScroll())
   };
 };
 
