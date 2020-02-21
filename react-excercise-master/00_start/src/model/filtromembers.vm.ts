@@ -1,5 +1,7 @@
 export interface FiltroMembers {
-    nameOrganization: string
+  nameOrganization: string;
 }
 
-export const createDefaultFiltroMiembros = (): FiltroMembers => ({ nameOrganization: "" })
+export const createDefaultFiltroMiembros = (): FiltroMembers => ({
+  nameOrganization: "Lemoncode"
+});
