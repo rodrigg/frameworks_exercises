@@ -8,10 +8,11 @@ const useInfiniteScroll = (
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isFetchingMore]);
+
   function handleScroll() {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
+      document.documentElement.offsetHeight ||
       isFetchingMore
     )
       return;
