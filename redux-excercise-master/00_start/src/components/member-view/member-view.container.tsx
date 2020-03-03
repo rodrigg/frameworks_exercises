@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { State } from "../../reducers";
 import { MembersViewComponent } from "./member-view.component";
-import { memberByName } from "../../actions/memberRequest";
+import { memberByNameRequest } from "../../actions/member.action";
 
 const mapStateToProps = ({ memberReducer: { memberByName } }: State) => ({
   memberByName
@@ -10,7 +10,7 @@ const mapStateToProps = ({ memberReducer: { memberByName } }: State) => ({
 const mapDispatchToProps = dispatch => {
   return {
     loadMemberByName: (name: string) => {
-      return dispatch(memberByName(name));
+      return dispatch(memberByNameRequest(name));
     },
   };
 };

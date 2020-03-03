@@ -39,7 +39,7 @@ export const memberChangeFiltro = (name: keyof FiltroMembers, value: any) => ({
   payload: { name, value }
 });
 
-export const memberRequest = (page: number, nameOrganization: string) => dispatcher => {
+export const memberListRequest = (page: number, nameOrganization: string) => dispatcher => {
   dispatcher(memberRequestInitialize(page));
   const promise = memberAPI.getAllMembers(nameOrganization, page).then(data =>
     dispatcher(memberRequestCompleted(data, page))
@@ -51,7 +51,7 @@ export const memberRequest = (page: number, nameOrganization: string) => dispatc
 
 
 
-export const memberByName = (name: string) => dispatcher => {
+export const memberByNameRequest = (name: string) => dispatcher => {
   const promise = memberAPI.getMemberByName(name).then(data =>
     dispatcher(memberByNameRequestCompleted(data))
   )

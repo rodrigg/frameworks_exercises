@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { memberRequest, memberChangeFiltro, memberScroll } from "../../actions/memberRequest";
+import { memberListRequest, memberChangeFiltro, memberScroll } from "../../actions/member.action";
 import { MemberAreaComponent } from "./memberArea";
 import { State } from "../../reducers";
 import { FiltroMembers } from "../../model/filtromembers.vm";
@@ -11,7 +11,7 @@ const mapStateToProps = ({ memberReducer }: State) => ({
 const mapDispatchToProps = dispatch => {
   return {
     loadMembers: (page: number, nameOrganization: string) => {
-      return dispatch(memberRequest(page, nameOrganization));
+      return dispatch(memberListRequest(page, nameOrganization));
     },
     handleChangeFiltro: (name: keyof FiltroMembers, value: string) => dispatch(memberChangeFiltro(name, value)),
     setFetchingScroll: (isFetchingScroll: boolean) => dispatch(memberScroll(isFetchingScroll))

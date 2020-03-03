@@ -1,6 +1,9 @@
 import { actionsEnums } from "../common/actionsEnums";
 import { MemberEntity, createDefaultMemberEntity } from "../model/member";
-import { createDefaultFiltroMiembros, FiltroMembers } from "../model/filtromembers.vm";
+import {
+  createDefaultFiltroMiembros,
+  FiltroMembers
+} from "../model/filtromembers.vm";
 
 export interface memberState {
   members: MemberEntity[];
@@ -16,15 +19,18 @@ export interface memberState {
 const defaultMemberState: memberState = {
   members: [],
   noEncontrado: false,
-  pageCount: 0,
+  pageCount: 1,
   hasMore: true,
   isFetchingMore: false,
   fetchingFirst: false,
   filtroMiembros: createDefaultFiltroMiembros(),
   memberByName: createDefaultMemberEntity(),
-  error: false,
+  error: false
 };
-export const memberReducer = (state: memberState = defaultMemberState, action) => {
+export const memberReducer = (
+  state: memberState = defaultMemberState,
+  action
+) => {
   switch (action.type) {
     case actionsEnums.MEMBER_REQUEST_COMPLETED:
       return handleMemberRequestCompletedAction(state, action.payload);
@@ -37,10 +43,13 @@ export const memberReducer = (state: memberState = defaultMemberState, action) =
     case actionsEnums.MEMBER_REQUEST_SCROLL:
       return handleMemberRequestScroll(state, action.payload);
     case actionsEnums.MEMBER_CHANGE_FILTRO:
-      return memberChangeFiltro(state, action.payload.name, action.payload.value);
+      return memberChangeFiltro(
+        state,
+        action.payload.name,
+        action.payload.value
+      );
     case actionsEnums.MEMBER_BY_NAME_REQUEST_COMPLETED:
       return handleMemberByNameRequestCompletedAction(state, action.payload);
-
   }
 
   return state;
@@ -56,11 +65,9 @@ const handleMemberRequestCompletedAction = (
       members: page === 1 ? members : [...state.members, ...members],
       pageCount: state.pageCount + 1
     };
-
   } else {
     return { ...state, hasMore: false };
   }
-
 };
 
 const handleMemberRequestInit = (
@@ -71,7 +78,7 @@ const handleMemberRequestInit = (
     ...state,
     error: false,
     noEncontrado: false,
-    hasMore: (page === 1) ? true : state.hasMore,
+    hasMore: page === 1 ? true : state.hasMore,
     fetchingFirst: page === 1
   };
 };
@@ -99,24 +106,24 @@ const handleMemberRequestFinally = (state: memberState): memberState => ({
   isFetchingMore: false
 });
 
-const handleMemberRequestScroll = (state: memberState, isFetchingMore): memberState => ({
+const handleMemberRequestScroll = (
+  state: memberState,
+  isFetchingMore
+): memberState => ({
   ...state,
   isFetchingMore
 });
 
-
-const memberChangeFiltro = (state: memberState, name: keyof FiltroMembers, value: any): memberState => ({
-  ...state, filtroMiembros: { ...state.filtroMiembros, [name]: value }
-
+const memberChangeFiltro = (
+  state: memberState,
+  name: keyof FiltroMembers,
+  value: any
+): memberState => ({
+  ...state,
+  filtroMiembros: { ...state.filtroMiembros, [name]: value }
 });
-
-
 
 const handleMemberByNameRequestCompletedAction = (
   state: memberState,
   memberByName: MemberEntity
-): memberState =>
-  ({ ...state, memberByName });
-
-
-
+): memberState => ({ ...state, memberByName });
